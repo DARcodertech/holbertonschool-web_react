@@ -24,7 +24,6 @@ class Director implements DirectorInterface {
   }
 }
 
-// Classe Teacher implémentant TeacherInterface
 class Teacher implements TeacherInterface {
   workFromHome(): string {
     return 'Cannot work from home';
@@ -48,7 +47,7 @@ function createEmployee(salary: number | string): Director | Teacher {
 }
 
 function isDirector(employee: Director | Teacher): employee is Director {
-  return (employee as Director).workDirectorTasks !== undefined;
+  return employee instanceof Director;
 }
 
 function executeWork(employee: Director | Teacher): string {
@@ -59,19 +58,9 @@ function executeWork(employee: Director | Teacher): string {
   }
 }
 
+console.log(createEmployee(200));
+console.log(createEmployee(1000));
+console.log(createEmployee('$500'));
+
 console.log(executeWork(createEmployee(200)));
 console.log(executeWork(createEmployee(1000)));
-console.log(executeWork(createEmployee('$500')));
-
-type Subjects = 'Math' | 'History';
-
-function teachClass(todayClass: Subjects): string {
-  if (todayClass === 'Math') {
-    return 'Teaching Math';
-  } else {
-    return 'Teaching History';
-  }
-}
-
-console.log(teachClass('Math'));
-console.log(teachClass('History'));
